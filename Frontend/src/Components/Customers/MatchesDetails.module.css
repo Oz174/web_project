@@ -1,0 +1,84 @@
+.main_Container {
+  /* Set background properties before the shorthand 'background' property */
+  background-position: center;
+  background: url(/src/Components/images/soccer-stadium.avif) no-repeat; /* Shorthand property */
+  background-size: cover;
+  /* Other styling properties */
+  
+  color: white;
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  min-height: 100vh;
+
+}
+
+.matchContainer {
+  padding: 1rem;
+  background: linear-gradient(
+    to right,
+    rgba(79, 173, 173, 0.8) 0%,
+    rgba(122, 160, 165, 0.6) 100%
+  );
+  color: white;
+  border-radius: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.matchContainer:hover {
+  background: linear-gradient(
+    to right,
+    rgba(79, 101, 173, 0.8) 0%,
+    rgba(54, 184, 97, 0.6) 100%
+  );
+  transform: scale(1.05);
+  color: white;
+  border-radius: 20px;
+}
+
+.leftTrending {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+.leftTrending h2 {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+}
+.leftTrending br {
+  margin: 0;
+  padding: 0;
+}
+.leftTrending p {
+  margin: 20px 0 15px;
+  color: #949cb0;
+}
+
+.hr1 {
+  margin: 0 0 20px;
+  width: 30%;
+  border-top: 2px solid #a8a8a83d;
+}
+.hr2 {
+  margin: 0;
+  border-top: 2px solid white;
+}
+
+.matches-grid {
+  margin: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2rem;
+  
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #2c3857;
+}

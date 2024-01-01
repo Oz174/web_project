@@ -1,0 +1,24 @@
+.Container {
+  display: flex;
+
+}
+
+.rightHalf {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.icons {
+  width: 200px;
+}
+.icons i {
+  margin: 5px;
+}
+
+#Logout {
+  color: gray;
+}
+#Logout:hover {
+  color: white;
+}

@@ -1,0 +1,28 @@
+.dateTimePicker{
+    width: 290px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+  }
+
+  .buttonSumbit {
+    width: 290px;
+    height: 45px;
+    border-radius: 5px;
+    margin-top: 20px
+  }
+  .HeadersStyle{
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 20px;
+    
+  }
+  .wrapper{
+    width: 350px;
+  }
+  .succsessMsg {
+    background-color: lightgreen;
+    color: green;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+  }

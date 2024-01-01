@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.btn-primary {
+  color: #131722;
+}
+
+.navbar {
+  display: flex;
+  background: linear-gradient(
+    to right,
+    rgba(79, 173, 173, 0.8) 0%,
+    rgba(122, 160, 165, 0.6) 100%
+  );
+}

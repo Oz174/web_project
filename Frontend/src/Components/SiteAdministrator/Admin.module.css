@@ -1,0 +1,23 @@
+.mainContainer {
+  background-color: #131722;
+  color: white;
+}
+table,
+th,
+td {
+  border: 1px solid white;
+  border-collapse: collapse;
+  padding: 1rem;
+  text-align: center;
+}
+
+tr:hover {
+  background-color: #d6eeee !important;
+}
+
+tr:nth-child(even) {
+  background-color: #273e52 !important;
+}
+tr:nth-child(odd) {
+  background-color: #0d3247 !important;
+}

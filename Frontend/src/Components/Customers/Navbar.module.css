@@ -1,0 +1,28 @@
+.Container {
+  display: flex;
+  background: linear-gradient(
+    to right,
+    rgba(79, 173, 173, 0.8) 0%,
+    rgba(122, 160, 165, 0.6) 100%
+  );
+}
+
+.rightHalf {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.icons {
+  width: 200px;
+}
+.icons i {
+  margin: 5px;
+}
+
+#Logout {
+  color: gray;
+}
+#Logout:hover {
+  color: white;
+}

@@ -1,0 +1,66 @@
+
+  .profilePage{
+    display: flex;
+  }
+  .profileData{
+    flex: 40%;
+    margin-left: 5%;
+  }
+  .editData{
+    flex: 60%;
+  }  
+
+  .labelData{
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .infoWrapper > div {
+    background: linear-gradient(
+      to right,
+      rgba(79, 173, 173, 0.8) 0%,
+      rgba(122, 160, 165, 0.6) 100%
+    );
+
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+label {
+  color: #cbd1e0;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 25px;
+}
+
+  .infoWrapper{
+    margin-left: 5%;
+    margin-top: 5%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    grid-gap: 10px;
+  }
+  .editButton {
+    width: 350px;
+    height: 45px;
+    border-radius: 5px;
+  }
+  .HeadersStyle{
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 20px;
+    
+  }
+  .succsessMsg {
+    background-color: lightgreen;
+    color: green;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .editData {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
