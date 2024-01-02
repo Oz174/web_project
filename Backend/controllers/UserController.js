@@ -171,11 +171,7 @@ const updateUser = async (req, res, next) => {
       firstName,
       lastName,
       password,
-      role,
       birthdate,
-      nationality,
-      gender,
-      creditCardNumber,
     } = user;
     //check if not null or ""
     if (req.body.firstName != null && req.body.firstName != "") {
@@ -193,31 +189,31 @@ const updateUser = async (req, res, next) => {
     } else {
       password = password;
     }
-    if (req.body.role != null && req.body.role != "") {
-      role = req.body.role;
-    } else {
-      role = role;
-    }
+    // if (req.body.role != null && req.body.role != "") {
+    //   role = req.body.role;
+    // } else {
+    //   role = role;
+    // }
     if (req.body.birthdate != null && req.body.birthdate != "") {
       birthdate = req.body.birthdate;
     } else {
       birthdate = birthdate;
     }
-    if (req.body.nationality != null && req.body.nationality != "") {
-      nationality = req.body.nationality;
-    } else {
-      nationality = nationality;
-    }
-    if (req.body.gender != null && req.body.gender != "") {
-      gender = req.body.gender;
-    } else {
-      gender = gender;
-    }
-    if (req.body.creditCardNumber != null && req.body.creditCardNumber != "") {
-      creditCardNumber = req.body.creditCardNumber;
-    } else {
-      creditCardNumber = creditCardNumber;
-    }
+    // if (req.body.nationality != null && req.body.nationality != "") {
+    //   nationality = req.body.nationality;
+    // } else {
+    //   nationality = nationality;
+    // }
+    // if (req.body.gender != null && req.body.gender != "") {
+    //   gender = req.body.gender;
+    // } else {
+    //   gender = gender;
+    // }
+    // if (req.body.creditCardNumber != null && req.body.creditCardNumber != "") {
+    //   creditCardNumber = req.body.creditCardNumber;
+    // } else {
+    //   creditCardNumber = creditCardNumber;
+    // }
     //if password changed hash it
     if (password != user.password) {
       const salt = await bcrypt.genSalt(10);
@@ -230,11 +226,7 @@ const updateUser = async (req, res, next) => {
           firstName: firstName,
           lastName: lastName,
           password: password,
-          role: role,
           birthdate: birthdate,
-          nationality: nationality,
-          gender: gender,
-          creditCardNumber: creditCardNumber,
         },
       }
     );

@@ -2,9 +2,7 @@ const {check } = require('express-validator');
 module.exports = {
     validateDOB : check('birthdate')
     .exists()
-    .trim()
-    .isDate()
-    .withMessage('birthdate must bein the form YYYY/MM/DD'),
+    .trim(),
 
     validateEmail: check('email')
     .exists()

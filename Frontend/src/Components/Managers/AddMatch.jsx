@@ -170,12 +170,12 @@ const egyptianClubNames = [
     // });
     console.log(data);
     // if the data.status is 200 then the match is added successfully
-    if (data.status === 200) {
+    if (data.status === 201||data.status ===200) {
       setSuccessMsg("Match added successfully");
       setErrMsg("");
 
     } else {
-      if(data.message === "No write concern mode named 'majority'' found in replica set configuration"){
+      if(data.message === "No write concern mode named 'majority'' found in replica set configuration"||data.message ==="Match created"){
         setSuccessMsg("Match added successfully");
       }
       else{

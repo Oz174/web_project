@@ -5,6 +5,7 @@ import axios from "axios";
 
 //used styles
 import style_ from "./Signup.module.css";
+import "../Customers/editDataStyling.css";
 
 //API route
 import { Route_ } from "../Route";
@@ -41,6 +42,8 @@ export default function Signup() {
   const errRef = useRef();
 
   const [errMsg, setErrMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+  const successRef = useRef();
 
   const [user, setUser] = useState("");
   const [validName, setValidName] = useState(false); // is name valid or not
@@ -61,7 +64,7 @@ export default function Signup() {
   const [first_name, set_first_name] = useState("");
   const [last_name, set_last_name] = useState("");
 
-  const [Birth_Date, set_Birth_Date] = useState(new Date());
+  const [Birth_Date, set_Birth_Date] = useState("");
   const [day_, setDay_] = useState("");
   const [month_, setmonth_] = useState("");
   const [year, setyear] = useState("");
@@ -154,6 +157,7 @@ export default function Signup() {
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
+    
 
     let temp_day = String(day_);
     let temp_month = String(month_);
@@ -181,41 +185,53 @@ export default function Signup() {
     console.log(validName && validPwd && validMatch && year && Role && Gender && city && address);
     
     //if the user is younger than 12 years old
+    console.log("age is");
+    console.log(yearNow);
+    console.log(year);
     if(yearNow-year<12){
       setErrMsg("You are too young to register, please ask your parents to register for you");
       return;
     }
-    if (validName && validPwd && validMatch && year && Role && Gender && city) {
+    if (!pwd || !matchPwd) {
+      setErrMsg("Enter password and match password");
+    } else if (!year) {
+      setErrMsg("Enter your birthdate");
+    } else if (!Role) {
+      setErrMsg("Enter your role");
+    } else if (!Gender) {
+      setErrMsg("Enter your gender");
+    }
+    else if(! city){
+      setErrMsg("Enter your city");
+    }
+    if (validName && validPwd && validMatch && year!=="" && Role && Gender && city) {
       console.log(year);
       let { data } = await axios.post(
         `${Route_}auth/signup`,
         user_,
         { validateStatus: false }
       );
+      console.log("hiiiiiiiii")
       console.log(data);
+      console.log("byeee");
       localStorage.setItem("username", user);
-      if (data.message === "Successful User signUp") {
-        if (data.data.role === "Manager") {
-          window.open("./login", "_self");
-        } else if (data.data.role === "Fan") {
-          window.open("./customer/match details", "_self");
-        } else if (data.data.role === "Admin") {
-          window.open("./allUsers", "_self");
-        }
+      if (data.message==="No write concern mode named 'majority'' found in replica set configuration") {
+        setErrMsg("");
+        //setSuccessMsg("Signed up successfully\nPlease login to continue");
+        window.open("./login", "_self");
+        // if (data.data.role === "Manager") {
+        //   window.open("./login", "_self");
+        // } else if (data.data.role === "Fan") {
+        //   window.open("./customer/match details", "_self");
+        // } else if (data.data.role === "Admin") {
+        //   window.open("./allUsers", "_self");
+        // }
         // setUser("");
         // setPwd("");
         // setMatchPwd("");
-      } else if (!pwd || !matchPwd) {
-        setErrMsg("Enter password and match password");
-      } else if (!year) {
-        setErrMsg("Enter your birthdate");
-      } else if (!Role) {
-        setErrMsg("Enter your role");
-      } else if (!Gender) {
-        setErrMsg("Enter your gender");
-      }
-      else if(! city){
-        setErrMsg("Enter your city");
+      } 
+      if (data.message==="User already exists"){
+        setErrMsg(data.message);
       }
     }
   };
@@ -242,6 +258,13 @@ export default function Signup() {
             >
               {errMsg}
             </p>
+            {/*------------------success------------------ */}
+          <p
+            ref={successRef}
+            className={successMsg ? "succsessMsg" : style_.offscreen}
+          >
+            {successMsg}
+          </p>
             <h1>Sign Up</h1>
             <form>
               <form style={{ display: step1_desp }}>

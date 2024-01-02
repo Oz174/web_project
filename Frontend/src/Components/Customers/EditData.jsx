@@ -31,7 +31,7 @@ export default function EditData() {
   const [Role, setRole] = useState("");
   const roleOptions = ["Manager", "Admin", "Fan"];
 
-  const [Birth_Date, set_Birth_Date] = useState(new Date());
+  const [Birth_Date, set_Birth_Date] = useState();
   const [day_, setDay_] = useState();
   const [month_, setmonth_] = useState();
   const [year, setyear] = useState();
@@ -107,7 +107,7 @@ export default function EditData() {
       password: PWD,
       // role: Role,
       birthdate: bd,
-      // nationality: Nationality,
+      //city: city,
       // gender: Gender,
     };
 
@@ -197,7 +197,7 @@ export default function EditData() {
           </label>
           <input
             className={style_.input}
-            placeholder="Enter Your Second Name"
+            placeholder={user.lastName}
             type={"text"}
             autoComplete="new-off"
             onChange={(e) => set_Second_name(e.target.value)}
@@ -208,7 +208,7 @@ export default function EditData() {
           </label>
           <input
             className={style_.input}
-            placeholder="Enter Your Password"
+            placeholder="Change Password"
             type={"password"}
             autoComplete="new-password"
             onChange={(e) => setPWD(e.target.value)}
