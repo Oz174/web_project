@@ -267,7 +267,7 @@ const matchMock={
             onChange={(data) => {
               setStadiums(data.value);
             }}
-            placeholder={matchMock.stadium}
+            placeholder="Select Stadium"
           />
           {/*--------------------Date part------------------------ */}
           <label>Match Date and Time</label>
@@ -296,7 +296,7 @@ const matchMock={
             onChange={(data) => {
               setMainReferee(data.value);
             }}//{MainReferee === "" ? "Select the main referee" : MainReferee}
-            placeholder={matchMock.referee}
+            placeholder="Select referee"
           />
           {/*--------------------first Linesmen------------------------ */}
           <label>
@@ -308,7 +308,7 @@ const matchMock={
             onChange={(data) => {
               setFirstLinesman(data.value);
             }}
-            placeholder={matchMock.lineman1}
+            placeholder="select linesman"
           />
           {/*--------------------second Linesmen------------------------ */}
           <label>
@@ -320,7 +320,7 @@ const matchMock={
             onChange={(data) => {
               setSecondLinesman(data.value);
             }}
-            placeholder={matchMock.lineman2}
+            placeholder="select linesman"
           />
           {/*--------------------second Linesmen------------------------ */}
           <br />

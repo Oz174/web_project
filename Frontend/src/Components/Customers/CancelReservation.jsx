@@ -69,7 +69,7 @@ export default function CancelReservation() {
       let temp_matches = [];
       for (let i = 0; i < data.length; i++) {
         temp_matches.push(
-          [data[i].team1 + " and " + data[i].team2 + " on " + new Date(data[i].datetime).toLocaleDateString() + " at " + new Date(data[i].datetime).toLocaleTimeString(), data[i]._id]);
+          [data[i].team1 + " and " + data[i].team2 + " on " + new Date(data[i].datetime).toLocaleDateString() + " at " + new Date(new Date(data[i].datetime).getTime()- 2*60*60*1000).toLocaleTimeString(), data[i]._id]);
       }
       setMatches(temp_matches);
     })();
