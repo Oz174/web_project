@@ -248,114 +248,119 @@ const updateUser = async (req, res, next) => {
 };
 
 const reserve = async (req, res, next) => {
-  try {
-    const { username, match_id } = req.params;
-    const { seatNumber, creditCardNumber, creditPinNumber } = req.body;
+  const { username, match_id } = req.params;
+  const { seatNumber, creditCardNumber, creditPinNumber } = req.body;
 
-    if (
-      !username ||
-      !match_id ||
-      !seatNumber ||
-      !creditCardNumber ||
-      !creditPinNumber
-    ) {
-      return res.status(400).json({ message: "Please fill all fields" });
+  let success_message = "";
+
+  if (
+    !username ||
+    !match_id ||
+    !seatNumber ||
+    !creditCardNumber ||
+    !creditPinNumber
+  ) {
+    return res.status(400).json({ message: "Please fill all fields" });
+  }
+  //check if the user exists
+  const user = await User.findOne({ username: username });
+  if (!user) {
+    return res.status(400).json({ message: "User does not exist" });
+  }
+
+  //check if the match exists
+  const match = await Match.findById(match_id);
+  if (!match) {
+    return res.status(400).json({ message: "Match does not exist" });
+  }
+  //check if the seat is already reserved
+  reservedSeats = match.reservedSeats;
+  for (i = 0; i < seatNumber.length; i++) {
+    if (reservedSeats.includes(seatNumber[i])) {
+      return res.status(400).json({ message: "Seat already reserved" });
     }
-    //check if the user exists
-    const user = await User.findOne({ username: username });
-    if (!user) {
-      return res.status(400).json({ message: "User does not exist" });
-    }
+    // add the seat to the reserved seats
+    reservedSeats.push(seatNumber[i]);
+  }
+
+  //add the match to the user's matches
+  matches = user.matches;
+  //if the user has already reserved a ticket for this match
+  if (!matches.includes(match_id)) {
+    matches.push(match_id);
+  }
+  // console.log(matches);
+
+  // if user has a ticket for this match add the seats to the ticket
+  const ticket = await Ticket.findOne({ match: match_id, user: user._id });
+  if (ticket) {
     
-    //check if the match exists
-    const match = await Match.findById(match_id);
-    if (!match) {
-      return res.status(400).json({ message: "Match does not exist" });
-    }
-    //check if the seat is already reserved
-    reservedSeats = match.reservedSeats;
+    seats = ticket.seat;
     for (i = 0; i < seatNumber.length; i++) {
-      if (reservedSeats.includes(seatNumber[i])) {
-        return res.status(400).json({ message: "Seat already reserved" });
-      }
-      // add the seat to the reserved seats
-      reservedSeats.push(seatNumber[i]);
+      seats.push(seatNumber[i]);
+    }
+    // check if seat numbers exceed five , then abort the operation
+    if (seats.length > 5) {
+      return res.status(400).json({ message: "You can't reserve more than 5 seats" });
     }
 
-    //add the match to the user's matches
-    matches = user.matches;
-    //if the user has already reserved a ticket for this match
-    if (!matches.includes(match_id)) {
-      matches.push(match_id);
-    }
-    console.log(matches);
-    //update the match
     try {
-      await Match.updateOne(
-        { _id: match_id },
-        { $set: { reservedSeats: reservedSeats } }
-      );
-    } catch (error) {
-      if(err.message == "No write concern mode named 'majority'' found in replica set configuration"){
-        res.status(201).json({ message: "Ticket reserved" });
-      }
-    }
-    
-    try {
-          //update the user
-      await User.updateOne(
-      { _id: user._id },
-      { $set: {matches: matches } }
-    );
-    } catch (error) {
-      if(err.message == "No write concern mode named 'majority'' found in replica set configuration"){
-        res.status(201).json({ message: "Ticket reserved" });
-      }
-    }
-
-    // if user has a ticket for this match add the seats to the ticket
-    const ticket = await Ticket.findOne({ match: match_id, user: user._id });
-    if (ticket) {
-      console.log("ALLLLLLLLLLLLLLLLLLLOOO");
-      seats = ticket.seat;
-      for (i = 0; i < seatNumber.length; i++) {
-        seats.push(seatNumber[i]);
-      }
-      try {
       await Ticket.updateOne(
         { match: match_id, user: user._id },
         { $set: { seat: seats } }
-        );
-        return res.status(201).send({ message: "Ticket Updated" });
-      } catch (error) {
-        if(err.message == "No write concern mode named 'majority'' found in replica set configuration"){
-          return res.status(201).json({ message: "Ticket reserved" });
-  }
-    }
-  }
-     else {
-      // create a new ticket and save it
-      try {
-        await Ticket.create({
-          match: match_id,
-          seat: seatNumber,
-          user: user._id,
-        });
-
-        return res.status(201).send({ message: "Ticket reserved" });
-        
-      } catch (error) {
-        if(err.message == "No write concern mode named 'majority'' found in replica set configuration"){
-          return res.status(201).json({ message: "Ticket reserved" });
-        }       
+      );      
+    } catch (error) {
+      if (
+        error.message ==
+        "No write concern mode named 'majority'' found in replica set configuration"
+      ) {
+        success_message += "Ticket Updated, ";
       }
     }
-  } catch (err) {
-    if(err.message == "No write concern mode named 'majority'' found in replica set configuration"){
-      return res.status(201).json({ message: "Ticket reserved" });
+  } else {
+    // create a new ticket and save it
+    try {
+      await Ticket.create({
+        match: match_id,
+        seat: seatNumber,
+        user: user._id,
+      });
+      success_message += "New ticket reserved , ";
+    } catch (error) {
+      if (
+        error.message ==
+        "No write concern mode named 'majority'' found in replica set configuration"
+      ) {
+        
+        success_message += "New ticket reserved, ";
+        }
     }
-    else{
-    res.status(400).json({ message: err.message });
+  }
+
+  try {
+    await Match.updateOne(
+      { _id: match_id },
+      { $set: { reservedSeats: reservedSeats } }
+    );
+  } catch (error) {
+    if (
+      error.message ==
+      "No write concern mode named 'majority'' found in replica set configuration"
+    ) {
+      success_message += "Match Updated, ";
+    }
+  }
+
+  try {
+    //update the user
+    await User.updateOne({ _id: user._id }, { $set: { matches: matches } });
+  } catch (error) {
+    if (
+      error.message ==
+      "No write concern mode named 'majority'' found in replica set configuration"
+    ) {
+      success_message += "User Updated \n";
+      res.json({ message: success_message });
     }
   }
 };
@@ -379,8 +384,7 @@ const getReservations = async (req, res, next) => {
     //check if the user has a ticket for this match
     const ticket = await Ticket.findOne({ match: match_id, user: user._id });
     if (!ticket) {
-      return res
-        .status(201).send({ seats: [] })
+      return res.status(201).send({ seats: [] });
     }
     //return the seats
     return res.status(201).send({ seats: ticket.seat });
