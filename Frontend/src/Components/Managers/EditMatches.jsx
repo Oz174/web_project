@@ -105,16 +105,16 @@ const matchMock={
     setSuccessMsg("");
     console.log("succssess msg"+successMsg);
     // do not allow to edit match date if new date is less than 5 days from now
-    const currentDate = new Date();
-    currentDate.setDate(currentDate.getDate() + 5); // Add 5 days to current date
-    console.log(match_datetime.getDate());
-    console.log(currentDate.getDate());
-    console.log(match_datetime> currentDate);
-    if(match_datetime< currentDate)
-    {
-      setErrMsg("Match date must be at least 5 days from now");
-      return; 
-    }
+    // const currentDate = new Date();
+    // currentDate.setDate(currentDate.getDate() + 5); // Add 5 days to current date
+    // console.log(match_datetime.getDate());
+    // console.log(currentDate.getDate());
+    // console.log(match_datetime> currentDate);
+    // if(match_datetime< currentDate)
+    // {
+    //   setErrMsg("Match date must be at least 5 days from now");
+    //   return; 
+    // }
     // let tempDate = year + "/" + month_ + "/" + day_;
     // //console.log(day_);
     // if (year.length === 0) {

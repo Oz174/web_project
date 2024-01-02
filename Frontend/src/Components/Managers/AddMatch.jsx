@@ -137,18 +137,18 @@ const egyptianClubNames = [
       setErrMsg("Please select second linesman");
       return; 
     }
-    // do not allow to add match if the match date is less than 5 days from now
-    const currentDate = new Date();
-    currentDate.setDate(currentDate.getDate() + 5); // Add 5 days to current date
-    console.log(match_datetime.getDate());
-    console.log(currentDate.getDate());
+    // // do not allow to add match if the match date is less than 5 days from now
+    // const currentDate = new Date();
+    // currentDate.setDate(currentDate.getDate() + 5); // Add 5 days to current date
+    // console.log(match_datetime.getDate());
+    // console.log(currentDate.getDate());
     
-    console.log(match_datetime> currentDate);
-    if(match_datetime< currentDate)
-    {
-      setErrMsg("Match date must be at least 5 days from now");
-      return; 
-    }
+    // console.log(match_datetime> currentDate);
+    // if(match_datetime< currentDate)
+    // {
+    //   setErrMsg("Match date must be at least 5 days from now");
+    //   return; 
+    // }
 // all data are correct send request to backend
     let newMatch = {
       team1: homeTeam,
