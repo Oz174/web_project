@@ -79,11 +79,14 @@ const addMatch = async (req, res) => {
       .json({ message: "referee or lineman1 or lineman2 is not available" });
   }
 
+  // hnzwd el sa3teen bto3 GMT+2 
+  const datetime2 = new Date(new Date(datetime).getTime() + 2 * 60 * 60 * 1000); 
+
   const match = new Match({
     team1: team1,
     team2: team2,
     stadium: dbstadium._id,
-    datetime: datetime,
+    datetime: datetime2,
     lineman1: lineman1,
     lineman2: lineman2,
     referee: referee,
