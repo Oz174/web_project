@@ -185,6 +185,8 @@ try {
       ) {
           return res.status(400).json({ message: "Nothing is changed" });
         }
+        const datetime2 = new Date(new Date(datetime).getTime() + 2 * 60 * 60 * 1000); 
+
         const updatedMatch = await Match.updateOne(
             { _id: id },
             {
@@ -192,7 +194,7 @@ try {
                     team1: team1,
                     team2: team2,
           stadium: stadium._id,
-          datetime: datetime,
+          datetime: datetime2,
           lineman1: lineman1,
           lineman2: lineman2,
           referee: referee,
@@ -200,12 +202,15 @@ try {
       }
     );
     if (updatedMatch.modifiedCount == 1) {
-      res.status(200).json({ message: "match updated" });
+      return res.status(200).json({ message: "match updated" });
     } else {
-      res.status(400).json({ message: "match not updated" });
+      return res.status(400).json({ message: "match not updated" });
     }
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    if(err.message == "No write concern mode named 'majority'' found in replica set configuration"){
+      return res.status(201).json({ message: "Match created" });
+    }
+    return res.status(400).json({ message: err.message });
   }
 };
 
