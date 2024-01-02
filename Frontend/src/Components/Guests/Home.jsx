@@ -86,7 +86,7 @@ export default function Home() {
                       </li>
 
                       <li style={{textAlign: 'center'}}>Stadium: <span style={{color: 'white'}}>{value.stadium.name}</span></li>
-                      <li style={{textAlign: 'center'}}>Date:  <span style={{color: 'white'}}> {new Date(value.datetime).toLocaleDateString() + " at " + new Date(value.datetime).toLocaleTimeString()}</span></li>
+                      <li style={{textAlign: 'center'}}>Date:  <span style={{color: 'white'}}> {new Date(value.datetime).toLocaleDateString() + " at " + new Date(new Date(value.datetime).getTime() - 2*60*60*1000).toLocaleTimeString()}</span></li>
                       <li style={{textAlign: 'center'}}>Main referee:  <span style={{color: 'white'}}> {value.referee} </span></li>
                       <li style={{textAlign: 'center'}}>
                         Linesmen: 
